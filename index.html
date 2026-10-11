@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CiGo · Ciudadanía y Gobierno</title>
+  <meta name="description" content="CiGo está en beta. Identidad, credenciales, atestación, accesos y votaciones para universidades, condominios, sindicatos y cooperativas." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="media/peranto_mark.png" />
+  <style>
+    :root {
+      --night: #0a1018;
+      --deep: #1a5b92;
+      --bright: #3da1bc;
+      --paper: #f6f4ef;
+      --ink: #141c26;
+      --muted: #5c6b7a;
+      --line: rgba(20, 28, 38, 0.12);
+      --cream: #f3e6c4;
+      --card: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Outfit, sans-serif;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+    a { color: inherit; }
+    img { max-width: 100%; }
+    .splash {
+      min-height: 100vh;
+      background: var(--night);
+      color: white;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 22px 24px 64px;
+    }
+    .splash::before,
+    .splash::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .splash::before {
+      width: 70vmax;
+      height: 70vmax;
+      right: -18vmax;
+      top: -28vmax;
+      background: rgba(26, 91, 146, 0.55);
+    }
+    .splash::after {
+      width: 46vmax;
+      height: 46vmax;
+      left: -16vmax;
+      bottom: -20vmax;
+      background: rgba(61, 161, 188, 0.28);
+    }
+    nav {
+      width: min(1120px, 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: relative;
+      z-index: 2;
+    }
+    .brand {
+      font-family: Fraunces, serif;
+      font-size: 22px;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      font-size: 14px;
+    }
+    .nav-links a { text-decoration: none; color: rgba(255,255,255,0.82); }
+    .nav-links a:hover { color: white; }
+    .pill {
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 999px;
+      padding: 6px 12px;
+      color: white !important;
+      letter-spacing: 0.08em;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+    }
+    .hero {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: min(760px, 100%);
+    }
+    .orbit {
+      width: min(340px, 78vw);
+      aspect-ratio: 1;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .orbit-ring {
+      position: absolute;
+      inset: 16%;
+      border: 1.5px dashed rgba(61, 161, 188, 0.55);
+      border-radius: 50%;
+    }
+    .orbit-glow {
+      position: absolute;
+      inset: 8%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(61,161,188,0.35), rgba(26,91,146,0.08) 55%, transparent 70%);
+    }
+    .face {
+      position: absolute;
+      width: 21%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #0a1018;
+      border: 1.5px solid rgba(61, 161, 188, 0.75);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(var(--a)) translateY(-162%) rotate(calc(var(--a) * -1));
+    }
+    .mark {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 20%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      border-radius: 27%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    h1 {
+      margin: 0;
+      font-family: Fraunces, serif;
+      font-weight: 500;
+      font-size: clamp(56px, 8vw, 84px);
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+    }
+    .tagline {
+      margin: 6px 0 0;
+      color: rgba(61, 161, 188, 0.95);
+      font-size: 18px;
+    }
+    .load {
+      margin-top: 28px;
+      width: min(220px, 46%);
+      height: 4px;
+      border-radius: 99px;
+      background: rgba(255,255,255,0.16);
+      overflow: hidden;
+    }
+    .load span {
+      display: block;
+      height: 100%;
+      width: 62%;
+      background: var(--bright);
+    }
+    .hero p.pitch {
+      margin: 28px 0 0;
+      max-width: 46ch;
+      color: rgba(255,255,255,0.78);
+      font-size: 16px;
+    }
+    .actions { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: 0;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 15px;
+    }
+    .btn.solid { background: linear-gradient(90deg, var(--deep), var(--bright)); color: white; }
+    .btn.ghost { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.28); }
+    .btn.ink { background: var(--night); color: white; }
+    main { position: relative; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    section { padding: 72px 0; }
+    .eyebrow {
+      font-family: "IBM Plex Mono", monospace;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: var(--deep);
+      margin: 0 0 10px;
+    }
+    h2 {
+      font-family: Fraunces, serif;
+      font-weight: 500;
+      font-size: clamp(32px, 4vw, 48px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin: 0 0 12px;
+    }
+    .lead { max-width: 62ch; color: var(--muted); margin: 0; }
+    .audiences {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+    .audience {
+      background: white;
+      border-radius: 18px;
+      padding: 18px 16px 16px;
+      border: 1px solid var(--line);
+      min-height: 148px;
+    }
+    .audience strong { display: block; font-size: 18px; margin-bottom: 6px; }
+    .audience span { color: var(--muted); font-size: 14px; }
+    .shot-row {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 280px;
+      gap: 22px;
+      overflow-x: auto;
+      padding: 28px 4px 12px;
+      scroll-snap-type: x mandatory;
+    }
+    .shot { scroll-snap-align: start; }
+    .shot figcaption {
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .shot figcaption strong { display: block; color: var(--ink); font-weight: 600; }
+    .gallery {
+      display: grid;
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .gallery figure {
+      margin: 0;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    .gallery img { display: block; width: 100%; background: #eceae4; }
+    .gallery figcaption { padding: 14px 16px 16px; color: var(--muted); font-size: 15px; }
+    .gallery figcaption strong { display: block; color: var(--ink); font-weight: 600; }
+    .phone {
+      width: 280px;
+      height: 572px;
+      background: #070b10;
+      border-radius: 36px;
+      padding: 10px;
+      box-shadow: 0 24px 50px rgba(10, 16, 24, 0.18);
+    }
+    .glass {
+      height: 100%;
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .glass.night { background: var(--night); color: white; }
+    .status {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      padding: 10px 14px 0;
+      font-weight: 600;
+    }
+    .app-title {
+      font-family: Fraunces, serif;
+      color: var(--deep);
+      font-size: 26px;
+      margin: 8px 16px 0;
+    }
+    .app-sub { margin: 0 16px 10px; color: var(--muted); font-size: 13px; }
+    .idcard, .vote-banner, .mini, .node, .ballot {
+      margin: 0 12px 8px;
+      border-radius: 18px;
+      padding: 14px;
+    }
+    .idcard { background: var(--night); color: white; }
+    .idcard .k { color: var(--bright); font-size: 12px; }
+    .idcard .name { font-size: 20px; margin-top: 2px; }
+    .phone .app-title { font-size: 22px; margin: 2px 16px 0; }
+    .phone .app-sub { margin: 0 16px 6px; }
+    .phone .idcard, .phone .vote-banner, .phone .mini, .phone .node, .phone .ballot { padding: 12px; margin-bottom: 6px; }
+    .phone .idcard .bal { font-size: 22px; margin-top: 4px; }
+    .phone .rowline { padding: 7px 4px; }
+    .phone .quicks { padding: 4px 18px 0; }
+    .phone .cred { margin: 6px 12px; padding: 12px; }
+    .phone .cred h3 { font-size: 20px; }
+    .phone .fields { margin-top: 6px; gap: 4px; }
+    .idcard .bal { font-size: 26px; font-weight: 600; margin-top: 8px; }
+    .idcard .net { opacity: 0.75; font-size: 12px; }
+    .vote-banner { background: var(--deep); color: white; }
+    .vote-banner small { opacity: 0.8; }
+    .quicks {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 18px 4px;
+      font-size: 11px;
+      text-align: center;
+    }
+    .quicks i {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--deep);
+      color: white;
+      font-style: normal;
+      margin: 0 auto 4px;
+      font-size: 14px;
+    }
+    .rowline {
+      margin: 0 12px;
+      padding: 10px 4px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+    .cred {
+      margin: 8px 12px;
+      border-radius: 18px;
+      color: white;
+      padding: 14px 14px 12px;
+    }
+    .cred.head { display: flex; justify-content: space-between; align-items: center; }
+    .cred .brandlet { letter-spacing: 0.12em; font-size: 11px; opacity: 0.75; }
+    .cred h3 { margin: 2px 0 0; font-size: 22px; font-weight: 600; }
+    .portrait {
+      width: 36px;
+      height: 44px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #10283f;
+    }
+    .member { background: linear-gradient(160deg, #24507a, #10283f); }
+    .elector { background: linear-gradient(160deg, #1f6b54, #0c2f26); }
+    .pass { background: linear-gradient(160deg, #3a4148, #1b1f23); }
+    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; font-size: 11px; }
+    .fields b { display: block; font-weight: 500; font-size: 12px; }
+    .fields span { opacity: 0.7; }
+    .wide { grid-column: 1 / -1; }
+    .ballot { background: white; border: 1px solid var(--line); }
+    .ballot h3 { margin: 0 0 4px; font-size: 16px; }
+    .choice {
+      margin-top: 8px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+    .choice.on { border-color: var(--deep); background: rgba(26, 91, 146, 0.08); }
+    .node { background: #f3efe6; }
+    .scores { display: flex; justify-content: space-between; margin-top: 8px; font-size: 13px; }
+    .scores b { color: var(--deep); display: block; }
+    .nfc {
+      margin: 24px auto 0;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(61,161,188,0.8);
+      display: grid;
+      place-items: center;
+      color: var(--bright);
+      font-size: 13px;
+      text-align: center;
+      padding: 12px;
+    }
+    .note {
+      margin: 16px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.78);
+      text-align: center;
+    }
+    .desk {
+      margin-top: 28px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      min-height: 280px;
+    }
+    .desk aside {
+      background: var(--night);
+      color: var(--paper);
+      padding: 22px 16px;
+    }
+    .desk aside p { margin: 0 0 8px; }
+    .desk nav { display: flex; flex-direction: column; gap: 6px; width: auto; }
+    .desk button {
+      text-align: left;
+      background: transparent;
+      color: var(--paper);
+      border: 0;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-family: inherit;
+    }
+    .desk button[aria-pressed="true"] { background: var(--deep); }
+    .desk .body { padding: 22px; }
+    .split { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 16px; }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      background: #fff;
+    }
+    .panel h3 { margin: 0 0 8px; font-size: 16px; }
+    .fake {
+      height: 36px;
+      border-radius: 8px;
+      background: #f3f1eb;
+      margin: 8px 0;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .qr {
+      width: 120px;
+      height: 120px;
+      background:
+        linear-gradient(#141c26 0 0) 0 0 / 28px 28px no-repeat,
+        linear-gradient(#141c26 0 0) 100% 0 / 28px 28px no-repeat,
+        linear-gradient(#141c26 0 0) 0 100% / 28px 28px no-repeat,
+        repeating-linear-gradient(90deg, #141c26 0 6px, transparent 6px 10px),
+        repeating-linear-gradient(#141c26 0 6px, #fff 6px 10px);
+      border-radius: 8px;
+    }
+    .grid-2, .grid-3 { display: grid; gap: 14px; margin-top: 22px; }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    article.card, .token {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    article.card h3, .token h3 { margin: 0 0 8px; font-family: Fraunces, serif; font-weight: 500; font-size: 26px; }
+    article.card p, .token p { margin: 0; color: var(--muted); }
+    .token b { color: var(--deep); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 18px;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 15px; }
+    th { color: var(--muted); font-weight: 500; }
+    .beta {
+      background: var(--night);
+      color: white;
+      border-radius: 28px;
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .beta .eyebrow { color: var(--bright); }
+    .beta p { color: rgba(255,255,255,0.78); }
+    .price {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    .price strong { display: block; font-family: Fraunces, serif; font-size: 32px; font-weight: 500; }
+    footer {
+      padding: 28px 0 40px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    #red a, footer a { color: var(--deep); font-weight: 600; }
+    .menu-btn { display: none; background: transparent; color: white; border: 1px solid rgba(255,255,255,0.28); border-radius: 8px; padding: 8px 10px; font-family: inherit; }
+    @media (max-width: 900px) {
+      .audiences, .grid-3, .grid-2, .beta, .desk, .split { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 48px;
+        right: 0;
+        background: #101820;
+        padding: 14px;
+        border-radius: 14px;
+        align-items: flex-start;
+      }
+      .menu-btn { display: inline-flex; }
+      .desk aside nav { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="splash">
+    <nav>
+      <a class="brand" href="#inicio">CiGo</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menú</button>
+      <div class="nav-links" id="menu">
+        <a href="#para-quien">Para quién</a>
+        <a href="#capturas">Capturas</a>
+        <a href="#sistema">Sistema</a>
+        <a href="#red">La red</a>
+        <a class="pill" href="#beta">BETA</a>
+      </div>
+    </nav>
+    <div class="hero" id="inicio">
+      <div class="orbit" aria-hidden="true">
+        <div class="orbit-glow"></div>
+        <div class="orbit-ring"></div>
+        <img class="face" style="--a: -90deg" src="media/cara1.png" alt="" />
+        <img class="face" style="--a: -45deg" src="media/cara2.png" alt="" />
+        <img class="face" style="--a: 0deg" src="media/cara3.png" alt="" />
+        <img class="face" style="--a: 45deg" src="media/cara4.png" alt="" />
+        <img class="face" style="--a: 90deg" src="media/cara5.png" alt="" />
+        <img class="face" style="--a: 135deg" src="media/cara6.png" alt="" />
+        <img class="face" style="--a: 180deg" src="media/cara7.png" alt="" />
+        <img class="face" style="--a: 225deg" src="media/cara8.png" alt="" />
+        <img class="mark" src="media/peranto_mark.png" alt="Peranto" />
+      </div>
+      <h1>CiGo</h1>
+      <p class="tagline">Ciudadanía y Gobierno</p>
+      <div class="load" aria-hidden="true"><span></span></div>
+      <p class="pitch">Una identidad en el teléfono. La organización emite las credenciales, abre las puertas y convoca las votaciones. Los datos se quedan en la credencial; en la red queda el ancla.</p>
+      <div class="actions">
+        <a class="btn solid" href="#capturas">Ver las pantallas</a>
+        <a class="btn ghost" href="#beta">Entrar a la beta</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="para-quien">
+      <div class="wrap">
+        <p class="eyebrow">Público</p>
+        <h2>Hecho para quien ya tiene gente a su cargo.</h2>
+        <p class="lead">CiGo no es una red social ni una wallet genérica. Es la cartera de una organización: universidad privada, acceso de condominio o unidad habitacional, sindicato o cooperativa. Cada persona lleva su identidad. La organización decide qué credencial entrega y qué puerta o asamblea abre.</p>
+        <div class="audiences">
+          <article class="audience">
+            <strong>Universidades privadas</strong>
+            <span>Credencial de estudiante o personal, acceso a campus y votaciones de consejo o asamblea, sin mezclar padrones.</span>
+          </article>
+          <article class="audience">
+            <strong>Condominios</strong>
+            <span>Puntos de acceso de la unidad habitacional. El lector reconoce la membresía o el pase del día.</span>
+          </article>
+          <article class="audience">
+            <strong>Sindicatos</strong>
+            <span>Padrón de agremiados, asambleas y votaciones de sección. El voto ve solo lo que la credencial cubre.</span>
+          </article>
+          <article class="audience">
+            <strong>Cooperativas</strong>
+            <span>La cooperativa entra como organización de la red: sus miembros y las credenciales que emite quedan en el mismo cuidado.</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="capturas" style="padding-top: 10px;">
+      <div class="wrap">
+        <p class="eyebrow">Capturas</p>
+        <h2>Así se usa en la organización.</h2>
+        <p class="lead">Pantallas actuales del escritorio de CiGo. La persona lleva la app en el teléfono. Quien convoca, emite y abre la puerta trabaja desde aquí. La firma la hace Aura, la extensión del navegador: el puesto no guarda la llave.</p>
+        <div class="gallery">
+          <figure>
+            <img src="media/door/emitir.png" alt="Escritorio de CiGo en Emitir: membresía, pase de día o elector, con nombre, lugar y código para el teléfono" />
+            <figcaption><strong>Emitir</strong>Tipo de credencial, datos, fotografía y el código que la persona lee con CiGo.</figcaption>
+          </figure>
+          <figure>
+            <img src="media/door/puesto.png" alt="Puesto de acceso con el código de reto listo para escanear" />
+            <figcaption><strong>Puesto</strong>El código y el lector se quedan activos. CiGo presenta la credencial por QR o por NFC.</figcaption>
+          </figure>
+          <figure>
+            <img src="media/door/convocar.png" alt="Convocatoria cívica, de cooperativa o general, con alcance y plazo" />
+            <figcaption><strong>Convocar</strong>Cívica, de la cooperativa o una pregunta general. CiGo solo la muestra a quien tiene la credencial.</figcaption>
+          </figure>
+          <figure>
+            <img src="media/door/accesos.png" alt="Bitácora de accesos del día, con entradas, salidas y descarga CSV" />
+            <figcaption><strong>Accesos</strong>Un día por tabla, con la hora de Ciudad de México. El libro queda en este navegador.</figcaption>
+          </figure>
+          <figure>
+            <img src="media/door/conectar.png" alt="Pantalla para conectar la extensión Aura antes de firmar" />
+            <figcaption><strong>Aura</strong>Si este equipo no tiene llave, el escritorio pide la extensión Aura. Esa identidad firma lo que se emite, ancla y revoca.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="sistema">
+      <div class="wrap">
+        <p class="eyebrow">Alrededor de la identidad</p>
+        <h2>Credencial, atestación, puerta y urna.</h2>
+        <p class="lead">La persona crea su identidad en el teléfono. La organización, desde el escritorio, emite, convoca y revisa accesos. Verificar una credencial no escribe en la cadena.</p>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Credenciales</h3>
+            <p>Membresía para el nodo, elector para la votación con geografía, y pase de día para una visita. La cartera las apila en el teléfono. Quien las emitió puede revocarlas; nadie más.</p>
+          </article>
+          <article class="card">
+            <h3>Atestación</h3>
+            <p>El puesto de atestación ata la identidad del teléfono a la credencial: nombre, datos y fotografía. CiGo lee el reto y devuelve la respuesta firmada. El toque NFC también firma, si el teléfono no muestra el código.</p>
+          </article>
+          <article class="card">
+            <h3>Puerta y NFC</h3>
+            <p>El acceso con lector necesita NFC. La persona deja CiGo abierto y acerca la parte de atrás del teléfono. El lector recibe la membresía, el elector o el pase vigente. Un pase vencido no abre.</p>
+          </article>
+          <article class="card">
+            <h3>QR, si no hay lector</h3>
+            <p>En el puesto sin NFC, CiGo lee el código del reto y luego muestra la respuesta. El mismo camino sirve para el alta y para entrar. La bitácora de accesos queda en el escritorio, un día por tabla.</p>
+          </article>
+          <article class="card">
+            <h3>Votaciones</h3>
+            <p>Tres caminos: cívica, de la cooperativa o una pregunta general. La cívica es secreta y mira la credencial de elector. La de nodo usa la membresía y puede ser secreta o visible. Cada persona solo ve la convocatoria que su credencial cubre.</p>
+          </article>
+          <article class="card">
+            <h3>La organización en la red</h3>
+            <p>La universidad, el condominio, el sindicato o la cooperativa es un nodo. Ahí están sus miembros. Participar y emitir credenciales los deja dentro de la misma red de cuidado.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="red" style="padding-top:0;">
+      <div class="wrap">
+        <p class="eyebrow">La red</p>
+        <h2>Una red solidaria de cuidado.</h2>
+        <p class="lead">No hace falta entender un modelo para entrar. La organización participa y emite credenciales para su gente. Esa participación y esas credenciales alimentan una red de cuidado entre universidades, condominios, sindicatos y cooperativas. Lo que una pone en juego no se queda en una caja ajena: circula y regresa a quienes sostienen la red.</p>
+        <div class="grid-3">
+          <article class="token">
+            <h3>Participar</h3>
+            <p>Asambleas, puertas y presencia en la organización. Cada participación deja a las personas dentro del cuidado común.</p>
+          </article>
+          <article class="token">
+            <h3>Emitir</h3>
+            <p>Cada credencial que la organización entrega a un estudiante, residente, agremiado o socio suma a la red. No es un trámite suelto.</p>
+          </article>
+          <article class="token">
+            <h3>Circular</h3>
+            <p>El cuidado no se acumula en un solo lugar. La mayor parte permanece en la organización y una parte común vuelve a los nodos.</p>
+          </article>
+        </div>
+        <p class="lead" style="margin-top:22px;"><a href="whitepaper.html">La regla completa está en el apartado técnico.</a></p>
+      </div>
+    </section>
+
+    <section id="beta" style="padding-top:10px;">
+      <div class="wrap">
+        <div class="beta">
+          <div>
+            <p class="eyebrow">Beta</p>
+            <h2>CiGo está en beta.</h2>
+            <p>Por un precio módico la organización entra al sistema. Con ese alta entrega credenciales a sus personas y abre sistemas de votación sin restricción de convocatorias: las que necesite la universidad, el condominio, el sindicato o la cooperativa.</p>
+            <p>La persona sigue viendo solo lo que su credencial cubre. El precio módico quita el tope del lado de quien convoca, no abre el padrón de otra organización.</p>
+          </div>
+          <div class="price">
+            <span class="eyebrow">Alta de organización</span>
+            <strong>Precio módico</strong>
+            <p>Credenciales para sus usuarios. Votaciones sin tope. Puerta con NFC o con QR. La organización queda dentro de la red de cuidado.</p>
+            <button class="btn solid" type="button" id="alta" style="margin-top:14px;">Pedir el alta</button>
+            <p id="alta-note" hidden style="margin-top:12px;">Este previo todavía no envía la solicitud. El alta de la beta se confirma con el equipo de Peranto.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="wrap">CiGo · Ciudadanía y Gobierno · <a href="https://peranto.app">peranto.app</a> · <a href="whitepaper.html">Apartado técnico</a></div>
+  </footer>
+  <script>
+    const menuBtn = document.querySelector(".menu-btn");
+    const menu = document.querySelector("#menu");
+    menuBtn.addEventListener("click", () => {
+      const open = menu.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+    document.querySelector("#alta").addEventListener("click", () => {
+      const note = document.querySelector("#alta-note");
+      note.hidden = false;
+    });
+  </script>
+</body>
+</html>
