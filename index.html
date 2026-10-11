@@ -514,6 +514,19 @@
       padding: 18px;
     }
     .price strong { display: block; font-family: Fraunces, serif; font-size: 32px; font-weight: 500; }
+    .alta { display: grid; gap: 8px; margin-top: 14px; }
+    .alta input, .alta select, .alta textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font: inherit;
+    }
+    .alta textarea { min-height: 72px; resize: vertical; }
+    .alta option { color: #141c26; }
+    .alta .btn { width: 100%; }
     footer {
       padding: 28px 0 40px;
       color: var(--muted);
@@ -722,8 +735,20 @@
             <span class="eyebrow">Alta de organización</span>
             <strong>Precio módico</strong>
             <p>Credenciales para sus usuarios. Votaciones sin tope. Puerta con NFC o con QR. La organización queda dentro de la red de cuidado.</p>
-            <button class="btn solid" type="button" id="alta" style="margin-top:14px;">Pedir el alta</button>
-            <p id="alta-note" hidden style="margin-top:12px;">Este previo todavía no envía la solicitud. El alta de la beta se confirma con el equipo de Peranto.</p>
+            <form class="alta" id="alta">
+              <input name="org" required maxlength="120" placeholder="Nombre de la organización" autocomplete="organization" />
+              <select name="kind" required aria-label="Tipo de organización">
+                <option value="">Tipo de organización</option>
+                <option>Universidad</option>
+                <option>Condominio</option>
+                <option>Sindicato</option>
+                <option>Cooperativa</option>
+              </select>
+              <input name="email" type="email" required maxlength="120" placeholder="Correo de contacto" autocomplete="email" />
+              <textarea name="note" maxlength="800" placeholder="Cuántas personas y qué necesitan: credenciales, puerta, votaciones"></textarea>
+              <button class="btn solid" type="submit">Pedir el alta</button>
+            </form>
+            <p style="margin-top:12px;">Se abre tu correo, dirigido a <a href="mailto:outreach@peranto.app">outreach@peranto.app</a>. No guardamos el mensaje en un servidor.</p>
           </div>
         </div>
       </div>
@@ -745,9 +770,21 @@
         menuBtn.setAttribute("aria-expanded", "false");
       });
     });
-    document.querySelector("#alta").addEventListener("click", () => {
-      const note = document.querySelector("#alta-note");
-      note.hidden = false;
+    document.querySelector("#alta").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const org = String(data.get("org") || "").trim();
+      const kind = String(data.get("kind") || "").trim();
+      const email = String(data.get("email") || "").trim();
+      const note = String(data.get("note") || "").trim();
+      const body = [
+        `Organización: ${org}`,
+        `Tipo: ${kind}`,
+        `Correo: ${email}`,
+        "",
+        note || "(Sin nota)",
+      ].join("\n");
+      location.href = `mailto:outreach@peranto.app?subject=${encodeURIComponent("Alta CiGo — " + org)}&body=${encodeURIComponent(body)}`;
     });
   </script>
 </body>
