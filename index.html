@@ -265,6 +265,22 @@
     .gallery img { display: block; width: 100%; background: #eceae4; }
     .gallery figcaption { padding: 14px 16px 16px; color: var(--muted); font-size: 15px; }
     .gallery figcaption strong { display: block; color: var(--ink); font-weight: 600; }
+    .phones {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      margin-top: 22px;
+      padding-bottom: 8px;
+    }
+    .phones figure { margin: 0; flex: 0 0 260px; }
+    .phones img {
+      width: 100%;
+      border-radius: 28px;
+      background: #0a1018;
+      border: 1px solid var(--line);
+    }
+    .phones figcaption { margin-top: 10px; color: var(--muted); font-size: 14px; }
+    .phones figcaption strong { display: block; color: var(--ink); font-weight: 600; }
     .phone {
       width: 280px;
       height: 572px;
@@ -614,6 +630,22 @@
           <figure>
             <img src="media/door/conectar.png" alt="Pantalla para conectar la extensión Aura antes de firmar" />
             <figcaption><strong>Aura</strong>Si este equipo no tiene llave, el escritorio pide la extensión Aura. Esa identidad firma lo que se emite, ancla y revoca.</figcaption>
+          </figure>
+        </div>
+        <h2 style="margin-top:56px;">Así se ve en el teléfono.</h2>
+        <p class="lead">Inicio, cartera y votación de la app en Android.</p>
+        <div class="phones">
+          <figure>
+            <img src="media/phone/inicio.png" alt="Inicio de CiGo: identidad, saldo y acciones Recibir, Enviar, Verificar y Escanear" />
+            <figcaption><strong>Inicio</strong>La identidad del teléfono y el elector listo para presentar.</figcaption>
+          </figure>
+          <figure>
+            <img src="media/phone/cartera.png" alt="Cartera de CiGo con membresías y la credencial de elector" />
+            <figcaption><strong>Cartera</strong>Membresías y elector. La fotografía vive en la credencial.</figcaption>
+          </figure>
+          <figure>
+            <img src="media/phone/votar.png" alt="Pantalla Votar de CiGo, sin convocatorias pendientes" />
+            <figcaption><strong>Votar</strong>Solo aparece la convocatoria que la credencial cubre y que todavía no se votó.</figcaption>
           </figure>
         </div>
       </div>
