@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CiGo · Apartado técnico de la red</title>
-  <meta name="description" content="Cómo la participación y la emisión de credenciales alimentan la red de cuidado de CiGo: contadores, aporte, canon y reparto." />
+  <title>CiGo · Apartado técnico</title>
+  <meta name="description" content="La red de cuidado de CiGo, y la criptografía del protocolo, de la cartera y del voto secreto." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -37,7 +37,7 @@
     nav, .lede, main, footer .wrap { width: min(760px, calc(100% - 40px)); margin: 0 auto; }
     nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
     .brand { color: white; text-decoration: none; font-family: Fraunces, serif; font-size: 22px; }
-    .back { color: rgba(255,255,255,0.82); text-decoration: none; font-size: 14px; }
+    .back, .back a { color: rgba(255,255,255,0.82); text-decoration: none; font-size: 14px; }
     .eyebrow {
       font-family: "IBM Plex Mono", monospace;
       letter-spacing: 0.16em;
@@ -87,12 +87,12 @@
   <header>
     <nav>
       <a class="brand" href="index.html">CiGo</a>
-      <a class="back" href="index.html#red">Volver a la red</a>
+      <span class="back"><a href="index.html#red">La red</a> · <a href="https://peranto.app">peranto.app</a></span>
     </nav>
     <div class="lede">
       <p class="eyebrow">Apartado técnico</p>
-      <h1>La red de cuidado, en el protocolo.</h1>
-      <p>En la página pública, participar y emitir credenciales alimentan una red solidaria. Este texto dice cómo se cuenta eso: qué sube, qué se reparte y qué no es un token de CiGo. El alta de la beta, con su precio módico, es el ingreso de la organización al sistema. No es esta contabilidad.</p>
+      <h1>La red y la criptografía.</h1>
+      <p>La primera parte dice cómo se cuenta el cuidado entre nodos: qué sube, qué se reparte y qué no es un token de CiGo. La segunda dice la criptografía que ya corre: la firma de la identidad, la bóveda del teléfono y el voto secreto. El alta de la beta, con su precio módico, es el ingreso de la organización al sistema. No es esta contabilidad.</p>
     </div>
   </header>
   <main>
@@ -163,9 +163,31 @@
     <h2>8. Qué ve quien entra por la beta</h2>
     <p>El precio módico es el alta de la organización: credenciales para su gente y votaciones sin tope de convocatorias. Cada persona sigue viendo solo la convocatoria que su credencial cubre. Ese alta no compra contadores ni abre el padrón de otra organización.</p>
     <p>La red de cuidado es lo que pasa después, entre nodos: participación, emisión y el regreso del común. Quien no necesite los pesos puede quedarse en la página. Este apartado es la regla con la que el protocolo evita que el cuidado se quede en una sola caja.</p>
+
+    <h2 id="criptografia">9. La firma de la identidad</h2>
+    <p>La persona tiene un par de claves en la curva secp256k1. La clave privada firma. La pública comprueba. Esa es la criptografía asimétrica de la identidad: quien presenta el teléfono demuestra que tiene la clave, y el puesto no se queda con ella.</p>
+    <p>La credencial viaja como un JWT firmado con ES256K, el perfil de esa misma curva. El contenido queda en el teléfono. El registro público guarda el ancla: la huella, el emisor y si sigue vigente. No guarda el expediente.</p>
+    <table>
+      <thead><tr><th>Para qué</th><th>Primitiva</th></tr></thead>
+      <tbody>
+        <tr><td>Firma de la identidad y de la credencial</td><td>secp256k1, ES256K. No es una curva del catálogo NIST.</td></tr>
+        <tr><td>Huella de la credencial y del documento</td><td>SHA-256, FIPS 180-4.</td></tr>
+        <tr><td>Huella de esquema, anulador y ancla en la cadena</td><td>Keccak-256.</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="cartera">10. La bóveda del teléfono</h2>
+    <p>La cartera cifra en el propio teléfono la frase y las claves. El cifrado de esa bóveda es simétrico: AES-256-GCM. La clave sale de la contraseña con PBKDF2-HMAC-SHA256, 600&nbsp;000 iteraciones. La contraseña no se guarda. Si se olvida, nadie la recupera, tampoco Peranto.</p>
+    <p>Eso protege el aparato. No es el cifrado del voto. La firma que el teléfono presenta en el puesto sale de la clave asimétrica que esa bóveda guarda.</p>
+
+    <h2 id="voto">11. El voto secreto, cifrado y homomórfico</h2>
+    <p>Cuando la convocatoria es secreta, la boleta no sale en claro. La cartera la cifra con ElGamal exponencial sobre secp256k1, en la forma de ElectionGuard: <code>Enc(m) = (rG, rP + mG)</code>. <code>P</code> es la clave pública de la urna. Sumar textos cifrados suma las marcas. El cómputo abre el total de cada opción. Cada boleta sigue cerrada. Por eso el comprobante del teléfono no dice la opción.</p>
+    <p>La clave de apertura no la tiene una sola persona. Tres custodios arman una ceremonia de Feldman, umbral 2 de 3. Nadie reconstruye la clave privada completa. Hacen falta dos descifrados parciales para el total. Entre custodios, el fragmento viaja con ECDH en la misma curva y AES-256-GCM.</p>
+    <p>La cadena puede mostrar que hubo un depósito y qué dirección lo firmó. El secreto cubre la marca, no la lista de quienes depositaron. Si la convocatoria es visible, la marca no va por esta urna cifrada.</p>
+    <p>Un límite, dicho aquí para no darlo por cerrado: en la vía cívica, la cartera filtra la convocatoria según la credencial. La urna ya desplegada no vuelve a comparar la geografía al depositar. Cerrarlo es un tablero nuevo. Al 11 de octubre de 2026 ese despliegue no se ha hecho. La suma homomórfica de la boleta secreta sí corre, y no depende de ese cierre.</p>
   </main>
   <footer>
-    <div class="wrap">CiGo · Apartado técnico · los parámetros iniciales están en el protocolo Peranto, no en un token de la marca.</div>
+    <div class="wrap">CiGo · Apartado técnico · <a href="https://peranto.app">peranto.app</a> · la firma, la bóveda y la urna están en el protocolo, no en un token de la marca.</div>
   </footer>
 </body>
 </html>
