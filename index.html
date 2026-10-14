@@ -533,6 +533,23 @@
       font-size: 14px;
     }
     #red a, footer a { color: var(--deep); font-weight: 600; }
+    .download {
+      background: var(--night);
+      color: white;
+    }
+    .download .eyebrow { color: var(--bright); }
+    .download h2, .download h3 { color: white; }
+    .download .lead,
+    .download article.card p { color: rgba(255,255,255,0.75); }
+    .download article.card {
+      background: #121a24;
+      border-color: rgba(255,255,255,0.12);
+    }
+    .download .fine {
+      margin: 14px 0 0;
+      font-size: 14px;
+      color: rgba(255,255,255,0.62);
+    }
     .menu-btn { display: none; background: transparent; color: white; border: 1px solid rgba(255,255,255,0.28); border-radius: 8px; padding: 8px 10px; font-family: inherit; }
     @media (max-width: 900px) {
       .audiences, .grid-3, .grid-2, .beta, .desk, .split { grid-template-columns: 1fr; }
@@ -563,6 +580,7 @@
         <a href="#capturas">Capturas</a>
         <a href="#sistema">Sistema</a>
         <a href="#red">La red</a>
+        <a href="#descarga">Descargar</a>
         <a class="pill" href="#beta">BETA</a>
       </div>
     </nav>
@@ -592,6 +610,32 @@
   </header>
 
   <main>
+    <section class="download" id="descarga">
+      <div class="wrap">
+        <p class="eyebrow">Piloto · Aura Wallet</p>
+        <h2>La cartera en el teléfono y en el navegador.</h2>
+        <p class="lead">La misma identidad. En Android se instala desde aquí. En la computadora, desde Chrome.</p>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Aura Wallet para Android</h3>
+            <p>Versión 0.1.102. Android 8 o más nuevo. No hace falta modo desarrollador: al abrir el archivo, el teléfono pide permitir la instalación desde Chrome, una sola vez.</p>
+            <div class="actions">
+              <a class="btn solid" href="downloads/aura-wallet.apk">Descargar para Android</a>
+            </div>
+            <p class="fine">Si Chrome avisa que el archivo puede ser peligroso, elige Descargar de todas formas. Luego abre el archivo, permite instalar desde Chrome y confirma. Anota la frase de recuperación: si desinstalas, es la única forma de volver a entrar.</p>
+          </article>
+          <article class="card">
+            <h3>Aura Wallet para Chrome</h3>
+            <p>Versión 0.2.0. La extensión firma desde el escritorio de CiGo. Usa la misma frase de recuperación que la app del teléfono.</p>
+            <div class="actions">
+              <a class="btn solid" href="https://chromewebstore.google.com/detail/aura-wallet/jgjhbhonfpoalhlbnmgffdcpjfdggbhd?hl=es" target="_blank" rel="noopener noreferrer">Instalar en Chrome</a>
+            </div>
+            <p class="fine">Abre Chrome en la computadora, pulsa el botón y confirma Añadir a Chrome.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section id="para-quien">
       <div class="wrap">
         <p class="eyebrow">Público</p>
