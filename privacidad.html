@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aviso de privacidad — CiGo</title>
+  <meta name="description" content="Aviso de privacidad de la aplicación CiGo para Android. La bóveda vive en el teléfono. Peranto no custodia claves ni opera una base de credenciales." />
+  <link rel="canonical" href="https://cigo.peranto.app/privacidad.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="media/peranto_mark.png" />
+  <style>
+    :root {
+      --night: #0a1018;
+      --deep: #1a5b92;
+      --bright: #3da1bc;
+      --paper: #f6f4ef;
+      --ink: #141c26;
+      --muted: #5c6b7a;
+      --line: rgba(20, 28, 38, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Outfit, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    a { color: var(--deep); }
+    header { background: var(--night); color: white; padding: 22px 0 48px; }
+    nav, .lede, main, footer .wrap { width: min(760px, calc(100% - 40px)); margin: 0 auto; }
+    nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .brand { color: white; text-decoration: none; font-family: Fraunces, serif; font-size: 22px; }
+    .back, .back a { color: rgba(255,255,255,0.82); text-decoration: none; font-size: 14px; }
+    .eyebrow {
+      font-family: "IBM Plex Mono", monospace;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: var(--bright);
+      margin: 36px 0 8px;
+    }
+    h1 {
+      font-family: Fraunces, serif;
+      font-weight: 500;
+      font-size: clamp(40px, 6vw, 64px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      margin: 0;
+    }
+    header p { max-width: 62ch; color: rgba(255,255,255,0.78); margin: 16px 0 0; }
+    main { padding: 12px 0 64px; }
+    h2 {
+      font-family: Fraunces, serif;
+      font-weight: 500;
+      font-size: 32px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin: 42px 0 10px;
+    }
+    p { margin: 0 0 14px; }
+    ul { margin: 0 0 14px; padding-left: 1.2em; }
+    li { margin: 0 0 8px; }
+    table { width: 100%; border-collapse: collapse; background: white; border-radius: 16px; overflow: hidden; margin: 16px 0 22px; }
+    th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 16px; }
+    th { color: var(--muted); font-weight: 500; }
+    code { font-family: "IBM Plex Mono", monospace; font-size: 0.92em; }
+    footer { padding: 0 0 40px; color: var(--muted); font-size: 14px; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="brand" href="index.html">CiGo</a>
+      <span class="back"><a href="index.html">Inicio</a> · <a href="whitepaper.html">Apartado técnico</a></span>
+    </nav>
+    <div class="lede">
+      <p class="eyebrow">Aviso de privacidad</p>
+      <h1>CiGo en el teléfono.</h1>
+      <p>Última actualización: 6 de noviembre de 2026. Este aviso cubre la aplicación Android CiGo. No cubre Aura, la extensión de navegador, que tiene su propio aviso.</p>
+    </div>
+  </header>
+  <main>
+    <h2>Quién publica la aplicación</h2>
+    <p>CiGo la publica Peranto. El nombre en el teléfono y en la ficha es CiGo. El identificador de paquete Android, el que registra Play, es <code>app.peranto.aura</code>. Ciudadanía y Gobierno es el nombre del producto: CiGo no es una aplicación oficial de un gobierno ni una autoridad electoral.</p>
+    <p>Peranto no opera una cuenta de la persona ni una base central de credenciales. La frase de recuperación y las claves se quedan en el teléfono. Peranto no puede abrir esa bóveda.</p>
+    <p>Para preguntas sobre este aviso: <a href="mailto:outreach@peranto.app">outreach@peranto.app</a>.</p>
+
+    <h2>Qué hace CiGo</h2>
+    <p>CiGo guarda en el teléfono una identidad <code>did:peranto</code> y las credenciales que una organización entrega: membresía, pase, elector u otras. Con esa credencial la persona se presenta en un puesto, por código QR, NFC o Bluetooth, y participa en una votación de su organización. La misma identidad puede mostrar un saldo y enviar el token de la red elegida. Eso no convierte a Peranto en un banco ni en una casa de cambio: Peranto no custodia fondos.</p>
+    <p>La organización que emite la credencial decide qué datos firma. Esos datos los captura quien emite, en su propio puesto. El aviso de esa organización cubre esa captura. Este aviso cubre lo que hace la aplicación del teléfono.</p>
+
+    <h2>Qué queda en el teléfono</h2>
+    <p>El almacenamiento es interno de la aplicación. Android no incluye esa bóveda en el respaldo de la nube (<code>allowBackup</code> desactivado).</p>
+    <table>
+      <thead>
+        <tr><th>Dato</th><th>Cómo se guarda</th><th>Para qué</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Frase de recuperación y claves</td><td>Cifradas con AES-256-GCM. La clave sale de la contraseña con PBKDF2-HMAC-SHA256, 600&nbsp;000 iteraciones. La contraseña no se guarda.</td><td>Firmar credenciales, votos y transacciones.</td></tr>
+        <tr><td>DID y direcciones</td><td>En claro. Son datos públicos.</td><td>Mostrar la identidad con la aplicación bloqueada.</td></tr>
+        <tr><td>Credenciales</td><td>En claro, en el mismo archivo.</td><td>Presentarlas cuando la persona lo aprueba.</td></tr>
+        <tr><td>Red, RPC y ajustes</td><td>En claro.</td><td>Hablar con la red que la persona eligió.</td></tr>
+        <tr><td>Sitios de confianza</td><td>En claro.</td><td>Recordar qué orígenes ya aprobó.</td></tr>
+      </tbody>
+    </table>
+    <p>Con la aplicación desbloqueada, las claves viven en memoria. Se borran al bloquear o tras el tiempo de inactividad (15 minutos, salvo que la persona lo cambie). Las pantallas de la frase y de la contraseña no permiten captura del sistema.</p>
+    <p>Si la persona activa la biometría, Android responde sí o no. CiGo no recibe la huella ni el rostro.</p>
+    <p>La cámara lee el código del puesto o toma la foto de un objeto, si la persona la pide. El micrófono solo entra si una página abierta dentro de CiGo lo solicita. Esas imágenes y ese audio no se envían a Peranto.</p>
+
+    <h2>Qué sale del teléfono</h2>
+    <p>CiGo no tiene analítica, ni anuncios, ni identificador publicitario. No hay un servidor de Peranto que reciba la bóveda. Cuando hace falta red, sale hacia estos destinos:</p>
+    <ul>
+      <li>El nodo RPC que esté elegido. Por defecto, en la red de prueba, <code>https://eth-rpc-testnet.polkadot.io/</code> y <code>wss://rpc.paseo.dev</code>. Sirve para leer saldo, estado y avisos, y para enviar una transacción que la persona aprueba. Ese nodo puede ver la dirección IP y las direcciones consultadas.</li>
+      <li><code>/.well-known/did-configuration.json</code> del sitio que pide acceso, para comprobar que el dominio controla el identificador que dice controlar. Si falla, no se aprueba.</li>
+      <li>El relay de WalletConnect, solo si la persona empareja un sitio con ese protocolo. El relay ve la dirección IP y el tema de la sesión, no las claves.</li>
+      <li>Parámetros públicos de la prueba de conocimiento cero, solo cuando la persona genera esa prueba y el componente está enlazado. Son datos públicos, sin la credencial.</li>
+      <li>Las páginas que la persona abre desde CiGo, por ejemplo el puesto de atestación, boletos o llaves en <code>peranto.app</code>. Cada una tiene su propio aviso.</li>
+    </ul>
+    <p>NFC y Bluetooth acercan la credencial o el boleto al puesto o al otro teléfono. Ese intercambio es local. El permiso de ubicación que Android 11 y versiones anteriores piden para buscar Bluetooth no se usa para localizar a la persona: CiGo no lee ni guarda la ubicación.</p>
+    <p>Las notificaciones de una función o de un aviso en cadena se arman en el teléfono. No las envía un servidor de avisos de Peranto.</p>
+
+    <h2>Quién más ve datos</h2>
+    <ul>
+      <li>La organización, cuando la persona presenta una credencial o deposita un voto. En una votación secreta el comprobante del teléfono no muestra la opción marcada.</li>
+      <li>El operador del nodo RPC, en los términos de arriba.</li>
+      <li>El relay de WalletConnect, solo en un emparejamiento.</li>
+    </ul>
+    <p>Peranto no vende datos y no los cede para publicidad ni para decidir crédito.</p>
+
+    <h2>Permisos del teléfono</h2>
+    <table>
+      <thead>
+        <tr><th>Permiso</th><th>Motivo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Internet</td><td>RPC, comprobación del sitio y, si se usa, WalletConnect.</td></tr>
+        <tr><td>Cámara</td><td>Leer el código del puesto o fotografiar un objeto, cuando la persona lo pide.</td></tr>
+        <tr><td>Micrófono</td><td>Solo si una página abierta dentro de CiGo lo solicita.</td></tr>
+        <tr><td>NFC</td><td>Presentar la credencial acercando el teléfono. No es obligatorio: el código QR sigue disponible.</td></tr>
+        <tr><td>Bluetooth</td><td>Acercar un boleto o una credencial al puesto o a otro teléfono.</td></tr>
+        <tr><td>Biometría</td><td>Desbloquear con huella o rostro. El dato biométrico se queda en el sistema.</td></tr>
+        <tr><td>Notificaciones, alarma y arranque</td><td>Recordar en el teléfono una función o un aviso ya leído de la red.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Derechos de la persona</h2>
+    <p>La bóveda es de quien tiene el teléfono.</p>
+    <ul>
+      <li>Exportar: el respaldo muestra la frase después de la contraseña. Las credenciales se pueden sacar del teléfono.</li>
+      <li>Borrar: «Borrar identidad local» elimina la bóveda de ese aparato. Desinstalar CiGo también. Peranto no guarda una copia para restaurarla. Sin la frase, no hay recuperación.</li>
+      <li>Acceso, rectificación, cancelación u oposición sobre el contenido de una credencial: se piden a la organización que la emitió. CiGo no envía esa solicitud. La organización es quien firmó el dato y quien puede revocar la credencial.</li>
+      <li>Este aviso: escribe a <a href="mailto:outreach@peranto.app">outreach@peranto.app</a>.</li>
+    </ul>
+
+    <h2>Menores</h2>
+    <p>CiGo está dirigida a personas de 18 años o más que participan en una organización. No está dirigida a menores y no pide una cuenta de niño.</p>
+
+    <h2>Cambios</h2>
+    <p>Un cambio de este aviso se publica en esta misma página y actualiza la fecha de arriba. La aplicación no tiene un servidor propio donde empujar el texto: la versión vigente es la de <a href="https://cigo.peranto.app/privacidad.html">cigo.peranto.app/privacidad.html</a>.</p>
+  </main>
+  <footer>
+    <div class="wrap">CiGo · Aviso de privacidad · <a href="mailto:outreach@peranto.app">outreach@peranto.app</a> · <a href="https://peranto.app/es/aura/privacidad/">Aviso de Aura, la extensión</a></div>
+  </footer>
+</body>
+</html>
