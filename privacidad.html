@@ -80,7 +80,7 @@
     <div class="lede">
       <p class="eyebrow">Aviso de privacidad</p>
       <h1>CiGo en el teléfono.</h1>
-      <p>Última actualización: 6 de noviembre de 2026. Este aviso cubre la aplicación Android CiGo. No cubre Aura, la extensión de navegador, que tiene su propio aviso.</p>
+      <p>Última actualización: 11 de noviembre de 2026. Este aviso cubre la aplicación Android CiGo. No cubre Aura, la extensión de navegador, que tiene su propio aviso.</p>
     </div>
   </header>
   <main>
@@ -120,7 +120,7 @@
       <li>Parámetros públicos de la prueba de conocimiento cero, solo cuando la persona genera esa prueba y el componente está enlazado. Son datos públicos, sin la credencial.</li>
       <li>Las páginas que la persona abre desde CiGo, por ejemplo el puesto de atestación, boletos o llaves en <code>peranto.app</code>. Cada una tiene su propio aviso.</li>
     </ul>
-    <p>NFC y Bluetooth acercan la credencial o el boleto al puesto o al otro teléfono. Ese intercambio es local. El permiso de ubicación que Android 11 y versiones anteriores piden para buscar Bluetooth no se usa para localizar a la persona: CiGo no lee ni guarda la ubicación.</p>
+    <p>NFC y Bluetooth acercan la credencial o el boleto al puesto o al otro teléfono. Ese intercambio es local. En Android 11 y anteriores el sistema pide ubicación para buscar Bluetooth; CiGo no guarda esa lectura. Si una página abierta dentro de CiGo pide la ubicación, el teléfono se la entrega a esa página. Peranto no recibe ni guarda la posición.</p>
     <p>Las notificaciones de una función o de un aviso en cadena se arman en el teléfono. No las envía un servidor de avisos de Peranto.</p>
 
     <h2>Quién más ve datos</h2>
@@ -140,6 +140,7 @@
         <tr><td>Internet</td><td>RPC, comprobación del sitio y, si se usa, WalletConnect.</td></tr>
         <tr><td>Cámara</td><td>Leer el código del puesto o fotografiar un objeto, cuando la persona lo pide.</td></tr>
         <tr><td>Micrófono</td><td>Solo si una página abierta dentro de CiGo lo solicita.</td></tr>
+        <tr><td>Ubicación</td><td>Solo si una página abierta dentro de CiGo la solicita y la persona la permite. Peranto no la recibe.</td></tr>
         <tr><td>NFC</td><td>Presentar la credencial acercando el teléfono. No es obligatorio: el código QR sigue disponible.</td></tr>
         <tr><td>Bluetooth</td><td>Acercar un boleto o una credencial al puesto o a otro teléfono.</td></tr>
         <tr><td>Biometría</td><td>Desbloquear con huella o rostro. El dato biométrico se queda en el sistema.</td></tr>
